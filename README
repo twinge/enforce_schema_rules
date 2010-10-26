@@ -1,0 +1,57 @@
+Enforce Schema Rules
+=====================
+
+This plugin provides a way to validate your model against databse rules 
+you've already created in your schema, including column lengths for strings, 
+"not null" designations, unique index constraints, and ensuring integer input 
+for integer columns.
+
+The four methods currently supported are: 
+
+	enforce_column_limits
+	enforce_integer_columns
+	enforce_not_null
+	enforce_unique_indexes
+
+You can also just call <tt>enforce_schema_rules</tt> to enforce all the above.
+
+Accepts the relevant validates_length_of options (i.e. :on and :message)
+and these assume the usual defaults.
+
+In addition to the regular options, you can also have an <tt>:except</tt> list
+enumerating the column that you don't want to validate. 
+
+By default, magic columns (_at, _on, _id, id, position, etc) are skipped. If 
+you'd like to override that behavior, you can define your own 
+<tt>:exclusion_regexp</tt>
+
+Examples:
+
+  class Person < ActiveRecord::Base
+    enforce_schema_rules :except => :dhh
+  end
+
+  class Book < ActiveRecord::Base
+    enforce_column_limits  :message => "exceeds the %d character limit", :on => :update
+    enforce_unique_indexes
+    enforce_not_null :exclusion_regexp => /$fk_/
+  end
+
+
+Download
+--------
+
+http://rubyforge.org/projects/enforce-schema/
+
+
+Bugs & feedback
+---------------
+
+Please send bug reports, patches and feedback to Josh Starcher at josh.starcher@gmail.com
+
+
+Credit
+------
+
+This plugin is basically an extension of David Easley's enforce-limits plugin.
+Michael Schuerig provided contributed a patch and a syle lesson
