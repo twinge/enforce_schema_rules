@@ -24,7 +24,7 @@ module Jls
           validates_each(*args) do |record, attr, value|
             limit = record.class.columns_hash[attr.to_s].limit
             if limit
-              message = options[:message] % limit
+              message = options[:message] % {:count => limit}
               record.errors.add(attr, message) unless value.nil? || value.size <= limit
             end
           end
