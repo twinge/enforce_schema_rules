@@ -2,9 +2,9 @@ Enforce Schema Rules
 =====================
 
 This plugin provides a way to validate your model against databse rules 
-you've already created in your schema, including column lengths for strings, 
-"not null" designations, unique index constraints, and ensuring integer input 
-for integer columns.
+you've already created in your schema, including column lengths for
+strings,  "not null" designations, unique index constraints, and
+ensuring integer input  for integer columns.
 
 The four methods currently supported are: 
 
@@ -13,17 +13,19 @@ The four methods currently supported are:
 	enforce_not_null
 	enforce_unique_indexes
 
-You can also just call <tt>enforce_schema_rules</tt> to enforce all the above.
+You can also just call <tt>enforce_schema_rules</tt> to enforce all the
+above.
 
 Accepts the relevant validates_length_of options (i.e. :on and :message)
 and these assume the usual defaults.
 
-In addition to the regular options, you can also have an <tt>:except</tt> list
-enumerating the column that you don't want to validate. 
+In addition to the regular options, you can also have an
+<tt>:except</tt> list enumerating the column that you don't want to
+validate. 
 
-By default, magic columns (_at, _on, _id, id, position, etc) are skipped. If 
-you'd like to override that behavior, you can define your own 
-<tt>:exclusion_regexp</tt>
+By default, magic columns (_at, _on, _id, id, position, etc) are
+skipped. If  you'd like to override that behavior, you can define your
+own  <tt>:exclusion_regexp</tt>
 
 Examples:
 
@@ -32,7 +34,7 @@ Examples:
   end
 
   class Book < ActiveRecord::Base
-    enforce_column_limits  :message => "exceeds the %d character limit", :on => :update
+    enforce_column_limits :message => "exceeds the %d character limit", :on => :update
     enforce_unique_indexes
     enforce_not_null :exclusion_regexp => /$fk_/
   end
@@ -41,17 +43,47 @@ Examples:
 Download
 --------
 
+http://github.com/eric1234/enforce_schema_rules
+
+
+Code of old plugin is located at:
+
+http://enforce-schema-rules.googlecode.com/svn/trunk/enforce_schema_rules/
+
+There is also a Rubyforge project of the old plugin at:
+
 http://rubyforge.org/projects/enforce-schema/
 
 
 Bugs & feedback
 ---------------
+Please send bug reports, patches and feedback to Eric Anderson <eric@saveyourcall.com>
 
-Please send bug reports, patches and feedback to Josh Starcher at josh.starcher@gmail.com
+Todo
+----
+This updates main goal was to get it to work in Rails 3. Some cleanup
+was just a side-effect. If anybody is interested additional cleanup
+items include:
 
+  * Make sure we don't need better test coverage. The original plugin
+    had tests but I don't believe they worked completely. I fixed up
+    all existing tests to pass but there may be coverage we are missing.
+  * I made the smallest number of changes to get things working under
+    Rails 3. This plugin was written a while back. It might could be
+    refactored using some new goodness that comes with a more recent
+    ActiveRecord/Rails implementation.
+  * I most likely dropped support for Rails 2.x. The old plugin worked
+    fine for those (there are some warnings but they can be fixed
+    fairly easily and don't need to be fixed). I'm not sure if we want
+    one plugin that supports both versions but if there is demand for
+    it somebody could probably do it without too much effort.
 
 Credit
 ------
+This is an update to the plugin written by Josh Starcher <josh.starcher@gmail.com>.
+Rails 3 compatibility has been added, it has been converted to a gem
+for easy project inclusion and various other cleanups have been implemented.
+In addition the original plugin gave the following credit notes:
 
-This plugin is basically an extension of David Easley's enforce-limits plugin.
-Michael Schuerig provided contributed a patch and a syle lesson
+  This plugin is basically an extension of David Easley's enforce-limits
+  plugin. Michael Schuerig provided contributed a patch and a syle lesson.

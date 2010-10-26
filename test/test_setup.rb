@@ -1,7 +1,11 @@
-ENV["RAILS_ENV"] = "test"
-$:.unshift File.join(File.dirname(__FILE__), '..', '..', '..', '..')
+require 'rubygems'
+require 'sqlite3'
+require 'active_record'
+require 'test/unit'
+require 'enforce_schema_rules'
+require 'ruby-debug'
 
-require 'config/environment'
+ActiveRecord::Base.establish_connection :adapter => 'sqlite3', :database  => ':memory:'
 
 ActiveRecord::Schema.define do
   create_table :enforce_schema_rules_test_table, :force => true do |t|
