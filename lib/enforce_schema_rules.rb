@@ -62,9 +62,7 @@ module Jls
         end
         
         def build_validation_args(options, col_type, validation_option = :invalid)
-          # Merge given options with defaults
-          options = ActiveRecord::Validations::ClassMethods::DEFAULT_VALIDATION_OPTIONS.merge(options)
-          options[validation_option] = ActiveRecord::Errors.default_error_messages[validation_option]
+          options[validation_option] = I18n.translate('errors.messages')[validation_option]
           options[:message] ||= options[validation_option]
           exclusion_regexp = options[:exclusion_regexp] || /(_at|_on|_id)$|^(id|position|type)$/
           # Determine which columns to validate and symbolize their names
