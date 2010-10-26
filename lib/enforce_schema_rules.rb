@@ -20,6 +20,7 @@ module Jls
         # Enforce string column limits
         def enforce_column_limits(options = {})
           args = build_validation_args(options, :string, :too_long)
+          return if args.first.is_a?(Hash)
           options = args.pop
           validates_each(*args) do |record, attr, value|
             limit = record.class.columns_hash[attr.to_s].limit
@@ -35,6 +36,7 @@ module Jls
           # first get the non-integers
           options[:allow_nil] = true
           args = build_validation_args(options, :numeric, :not_a_number)
+          return if args.first.is_a?(Hash)
           validates_numericality_of(*args)
           # now do the integers
           options[:only_integer] = true
@@ -45,12 +47,14 @@ module Jls
         # Enfore "not null" columns settings
         def enforce_not_null(options = {})
           args = build_validation_args(options, :not_null, :blank)
+          return if args.first.is_a?(Hash)
           validates_presence_of(*args)
        end
         
         # Enfore unique indexes
         def enforce_unique_indexes(options = {})
           attrs = build_validation_args(options, false, :taken)
+          return if attrs.first.is_a?(Hash)
           options = attrs.pop
           connection.indexes(table_name).select { |index| index.unique && index.columns.size == 1 && attrs.include?(index.columns.first.to_sym) }.each do |index|
             validates_uniqueness_of(index.columns.first, options)
