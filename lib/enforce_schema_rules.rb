@@ -36,12 +36,11 @@ module Jls
           # first get the non-integers
           options[:allow_nil] = true
           args = build_validation_args(options, :numeric, :not_a_number)
-          return if args.first.is_a?(Hash)
-          validates_numericality_of(*args)
+          validates_numericality_of(*args) unless args.first.is_a? Hash
           # now do the integers
           options[:only_integer] = true
           args = build_validation_args(options, :integer, :not_a_number)
-          validates_numericality_of(*args)
+          validates_numericality_of(*args) unless args.first.is_a? Hash
         end
         
         # Enfore "not null" columns settings
