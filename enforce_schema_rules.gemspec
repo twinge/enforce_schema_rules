@@ -5,7 +5,6 @@ Gem::Specification.new do |s|
   s.email = ['josh.starcher@gmail.com', nil, nil, 'eric@saveyourcall.com']
   s.add_dependency 'activerecord'
   s.files = Dir['lib/*']
-  s.has_rdoc = true
   s.extra_rdoc_files << 'README'
   s.rdoc_options << '--main' << 'README'
   s.summary = 'An ActiveRecord plugin to automatically enforce database contraints'
