@@ -1,7 +1,7 @@
 Enforce Schema Rules
 =====================
 
-This plugin provides a way to validate your model against databse rules 
+This plugin provides a way to validate your model against database rules 
 you've already created in your schema, including column lengths for
 strings,  "not null" designations, unique index constraints, and
 ensuring integer input  for integer columns.
