@@ -7,10 +7,10 @@ ensuring integer input  for integer columns.
 
 The four methods currently supported are: 
 
-	  enforce_column_limits
-	  enforce_integer_columns
-	  enforce_not_null
-	  enforce_unique_indexes
+    enforce_column_limits
+    enforce_integer_columns
+    enforce_not_null
+    enforce_unique_indexes
 
 You can also just call <tt>enforce_schema_rules</tt> to enforce all the
 above.
@@ -43,18 +43,18 @@ Examples:
 
 Development is done at:
 
-  http://github.com/twinge/enforce_schema_rules
+    http://github.com/twinge/enforce_schema_rules
 
 You can install as a gem with:
 
-  gem install enforce_schema_rules
+    gem install enforce_schema_rules
 
 == Bugs & feedback
 
 Please send bug reports, patches and feedback to the GitHub project.
 
-Credit
-------
+== Credit
+
 The plugin was written by Josh Starcher <josh.starcher@gmail.com>. It
 was updated to Rails 3 by Eric Anderson <eric@pixelwareinc.com>. This
 plugin is basically an extension of David Easley's enforce-limits
