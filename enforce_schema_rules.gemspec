@@ -7,8 +7,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'test-unit'
   s.files = Dir['lib/*']
-  s.extra_rdoc_files << 'README'
-  s.rdoc_options << '--main' << 'README'
+  s.extra_rdoc_files << 'README.rdoc'
+  s.rdoc_options << '--main' << 'README.rdoc'
   s.summary = 'An ActiveRecord plugin to automatically enforce database contraints'
   s.description = <<-DESCRIPTION
     A macro-style method that will automatically read the database
