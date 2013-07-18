@@ -3,7 +3,6 @@ require 'sqlite3'
 require 'active_record'
 require 'test/unit'
 require 'enforce_schema_rules'
-require 'ruby-debug'
 
 ActiveRecord::Base.establish_connection :adapter => 'sqlite3', :database  => ':memory:'
 
@@ -22,7 +21,7 @@ end
 
 module EnforceSchema
   class Model < ActiveRecord::Base
-    set_table_name "enforce_schema_rules_test_table"
+    self.table_name = "enforce_schema_rules_test_table"
   end
   class AllRules < Model
     enforce_schema_rules :except => :created_at
