@@ -77,7 +77,7 @@ module Jls
                         # I have to exclude boolean types because of a "feature" of the way validates_presence_of
                         # handles boolean fields
                         # See http://dev.rubyonrails.org/ticket/5090 and http://dev.rubyonrails.org/ticket/3334
-                        lambda { |col| (col.name !~ exclusion_regexp || col.name =~ /_id$/) && !col.null && col.type != :boolean }
+                        lambda { |col| col.name !~ exclusion_regexp && !col.null && col.type != :boolean }
                       else
                         lambda { |col| col.name !~ exclusion_regexp && col_type == col.type }
                       end

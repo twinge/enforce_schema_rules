@@ -13,7 +13,6 @@ ActiveRecord::Schema.define do
     t.column :integer_column, :integer
     t.column :float_column, :float
     t.column :boolean_column, :boolean, :null => false
-    t.column :not_null_foreign_key_id, :integer, :null => false
     t.column :created_at, :datetime
   end
   add_index(:enforce_schema_rules_test_table, :string_column, :unique => true)
@@ -39,5 +38,3 @@ module EnforceSchema
     enforce_unique_indexes
   end
 end
-
-
