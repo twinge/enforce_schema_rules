@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'enforce_schema_rules'
-  s.version = '0.0.17'
+  s.version = '0.0.20'
   s.authors = ['Josh Starcher', 'David Easley', 'Michael Schuerig', 'Eric Anderson']
   s.email = ['josh.starcher@gmail.com', nil, nil, 'eric@saveyourcall.com']
   s.add_dependency 'activerecord'
