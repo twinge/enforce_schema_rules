@@ -28,9 +28,13 @@ module Jls
             limit = record.class.columns_hash[attr.to_s].limit
             if limit
               message = case
-              when options[:message].is_a?(String) then options[:message] % {count: limit}
-              when limit == 1 then options[:message][:one]
-              else options[:message][:other] % {:count => limit} end
+                when options[:message].is_a?(String)
+                  options[:message] % {count: limit}
+                when limit == 1
+                  options[:message][:one]
+                else
+                  options[:message][:other] % {:count => limit}
+              end
               record.errors.add(attr, message) unless value.nil? || value.size <= limit
             end
           end
