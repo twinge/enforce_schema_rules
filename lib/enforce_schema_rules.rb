@@ -18,7 +18,7 @@ module Jls
           enforce_not_null(options.dup)
           enforce_unique_indexes(options.dup)
         end
-        
+
         # Enforce string column limits
         def enforce_column_limits(options = {})
           args = build_validation_args(options, :string, :too_long)
@@ -27,12 +27,15 @@ module Jls
           validates_each(*args) do |record, attr, value|
             limit = record.class.columns_hash[attr.to_s].limit
             if limit
-              message = options[:message] % {:count => limit}
+              message = case
+              when options[:message].is_a?(String) then options[:message] % {count: limit}
+              when limit == 1 then options[:message][:one]
+              else options[:message][:other] % {:count => limit} end
               record.errors.add(attr, message) unless value.nil? || value.size <= limit
             end
           end
         end
-        
+
         # Enforce numericality of integer columns
         def enforce_integer_columns(options = {})
           # first get the non-integers
@@ -44,14 +47,14 @@ module Jls
           args = build_validation_args(options, :integer, :not_a_number)
           validates_numericality_of(*args) unless args.first.is_a? Hash
         end
-        
+
         # Enfore "not null" columns settings
         def enforce_not_null(options = {})
           args = build_validation_args(options, :not_null, :blank)
           return if args.first.is_a?(Hash)
           validates_presence_of(*args)
        end
-        
+
         # Enfore unique indexes
         def enforce_unique_indexes(options = {})
           attrs = build_validation_args(options, false, :taken)
@@ -61,7 +64,7 @@ module Jls
             validates_uniqueness_of(index.columns.first, options)
           end
         end
-        
+
         def build_validation_args(options, col_type, validation_option = :invalid)
           options[validation_option] = I18n.translate('errors.messages')[validation_option]
           options[:message] ||= options[validation_option]
@@ -71,7 +74,7 @@ module Jls
                       when :numeric
                         lambda { |col| col.name !~ exclusion_regexp && col.number? && col.type != :integer }
                       when :not_null
-                        # I have to exclude boolean types because of a "feature" of the way validates_presence_of 
+                        # I have to exclude boolean types because of a "feature" of the way validates_presence_of
                         # handles boolean fields
                         # See http://dev.rubyonrails.org/ticket/5090 and http://dev.rubyonrails.org/ticket/3334
                         lambda { |col| (col.name !~ exclusion_regexp || col.name =~ /_id$/) && !col.null && col.type != :boolean }
