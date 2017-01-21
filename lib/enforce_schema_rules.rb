@@ -76,7 +76,8 @@ module Jls
           # Determine which columns to validate and symbolize their names
           condition = case col_type
                       when :numeric
-                        lambda { |col| col.name !~ exclusion_regexp && col.number? && col.type != :integer }
+                        numeric_types = %i[float decimal] # :integer purposely missing
+                        lambda { |col| col.name !~ exclusion_regexp && numeric_types.include?(col.type) }
                       when :not_null
                         # I have to exclude boolean types because of a "feature" of the way validates_presence_of
                         # handles boolean fields
